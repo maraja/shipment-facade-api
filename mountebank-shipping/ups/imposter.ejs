@@ -1,0 +1,13 @@
+{
+    "port": 8080,
+    "protocol": "http",
+    "defaultResponse": {
+      "statusCode": 200,
+      "body":  "<%- stringify(filename, 'ups/default-payload.json') %>",
+      "headers": {"Content-Type": "application/json"}
+    },
+    "stubs": [
+      <% include stub1.ejs %>,
+      <% include stub2.ejs %>
+    ]
+}

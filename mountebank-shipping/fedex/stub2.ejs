@@ -1,0 +1,33 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "method": "POST",
+            "path": "/"
+          }
+        },
+        {
+          "xpath": {
+            "selector": "//zip"
+          },
+          "equals": {
+            "body": "10021"
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/xml"
+        },
+        "body": "<%- stringify(filename, 'fedex/stub2-payload.xml') %>"
+      }
+    }
+  ]
+}

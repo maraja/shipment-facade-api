@@ -1,0 +1,33 @@
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "equals": {
+            "method": "POST",
+            "path": "/"
+          }
+        },
+        {
+          "jsonpath": {
+            "selector": "$..zip"
+          },
+          "equals": {
+            "body": "10021"
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "statusCode": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "body": "<%- stringify(filename, 'ups/stub2-payload.json') %>"
+      }
+    }
+  ]
+}

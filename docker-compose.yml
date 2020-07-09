@@ -1,0 +1,35 @@
+version: "3"
+services:
+    backend:
+        build: "./backend"
+        depends_on:
+            - backend-db
+            - shipping-backend
+        environment:
+            - DB_URI=mysql://root:password@backend-db/db?charset=UTF8
+            - UPS_URI=http://shipping-backend:8080
+            - FEDEX_URI=http://shipping-backend:9090
+            - MOCK_DATA=no
+        ports:
+            - 7001:7001
+        volumes:
+            - ./backend:/opt/app
+    
+    backend-db:
+        environment:
+            - MYSQL_ROOT_PASSWORD=password
+            - MYSQL_DATABASE=db
+        image: mysql:5.7.20
+        ports:
+            - 0.0.0.0:7201:3306
+
+    shipping-backend:
+        build: './mountebank-shipping'
+        environment:
+            - NODE_ENV=production
+        volumes:
+            - ./mountebank-shipping:/mocks
+        ports:
+            - 7199:2525
+            - 7101:8080
+            - 7102:9090

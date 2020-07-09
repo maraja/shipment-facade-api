@@ -1,0 +1,15 @@
+{
+  "port": 9090,
+  "protocol": "http",
+  "defaultResponse": {
+    "statusCode": 200,
+    "body": "<%-stringify(filename, 'fedex/default-payload.xml') %>",
+    "headers": {
+      "Content-Type": "application/xml"
+    }
+  },
+  "stubs": [
+    <% include stub1.ejs %>,
+    <% include stub2.ejs %>
+  ]
+}

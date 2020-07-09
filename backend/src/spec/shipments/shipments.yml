@@ -1,0 +1,83 @@
+shipments:
+    post:
+        description: |
+            creates a new shipment
+        operationId: postShipment
+        # security:
+        #     - ApiKeyAuth: []
+        requestBody:
+            description: details for shipment quote
+            required: true
+            content:
+                application/json:
+                    schema: 
+                        $ref: '#/components/schemas/Shipment'
+
+        responses:
+            '200':
+                description: shipment quote
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Shipment'
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
+    delete:
+        description: |
+            deletes a shipment
+        operationId: deleteShipment
+        # security:
+        #     - ApiKeyAuth: []
+        requestBody:
+            description: shipment to delete
+            required: true
+            content:
+                application/json:
+                    schema: 
+                        required:
+                            - id
+                        properties:
+                            id:
+                                type: string
+
+        responses:
+            '200':
+                description: shipment response
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Shipment'
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
+
+components:
+    schemas:
+        Shipment:
+            required:
+                - height
+                - length
+                - width
+                - weight
+            properties:
+                id:
+                    type: string
+                height:
+                    type: number
+                    minimum: 0
+                length:
+                    type: number
+                    minimum: 0
+                width:
+                    type: number
+                    minimum: 0
+                weight:
+                    type: number
+                    minimum: 0

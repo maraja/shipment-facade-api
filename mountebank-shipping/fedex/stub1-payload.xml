@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ship>
+  <rates>
+    <rate>
+      <id>2E872394-55C9-4162-8B6B-2FD03A73771B</id>
+      <price>59.95</price>
+      <serviceType>GROUND</serviceType>
+      <carrier>
+        <serviceLevel>FedEx (Threshold Delivery)</serviceLevel>
+        <delivery>1-2 Weeks (currently experiencing significant delays)</delivery>
+        <description>The item will be collected from the consignor, packaged for transit, and delivered to your front porch, front door, curbside or garage. The shipper will not enter the premises, remove packaging, or provide any assembly.</description>
+      </carrier>
+    </rate>
+    <rate>
+      <id>143C22DD-0489-4015-9CFC-29D8EB2D589A</id>
+      <price>159.9</price>
+      <serviceType>STANDARD</serviceType>
+      <carrier>
+        <serviceLevel>FedEx Standard Delivery</serviceLevel>
+        <delivery>4-5 Days (currently experiencing significant delays)</delivery>
+        <description>The item will be collected from the consignor, packaged for transit, and delivered to your front porch, front door, curbside or garage. The shipper will not enter the premises, remove packaging, or provide any assembly.</description>
+      </carrier>
+    </rate>
+  </rates>
+</ship>

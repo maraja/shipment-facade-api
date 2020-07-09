@@ -1,0 +1,34 @@
+{
+  "shipping": [
+    {
+      "origin_zip": "11215",
+      "rates": [
+        {
+          "id": "5ef5a85edf9572001b1b4926",
+          "price": 49.5,
+          "provider_type": "UPS",
+          "service_type": "GROUND",
+          "elapsedTime": 154,
+          "carrier": {
+            "service_level": "UPS (Threshold Delivery)",
+            "approx_delivery": "2-5 Weeks (currently experiencing significant delays)",
+            "description": "The item will be collected from the consignor, packaged for transit, and delivered to your front porch, front door, curbside or garage. The shipper will not enter the premises, remove packaging, or provide any assembly."
+          }
+        },
+        {
+          "id": "5ef5a85edf9572001b1b4927",
+          "price": 159.9,
+          "provider_type": "UPS",
+          "service_type": "STANDARD",
+          "elapsedTime": 30,
+          "carrier": {
+            "service_level": "UPS Standard Delivery",
+            "approx_delivery": "1-2 Days (currently experiencing significant delays)",
+            "description": "The item will be collected from the consignor, packaged for transit, and delivered to your front porch, front door, curbside or garage. The shipper will not enter the premises, remove packaging, or provide any assembly."
+          }
+        }
+      ]
+    }
+  ],
+  "timestamp": 1593157726838
+}

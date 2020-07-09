@@ -1,0 +1,79 @@
+shipmentsById:
+    get:
+        description: |
+            gets shipment details
+        operationId: getShipment
+        # security:
+        #     - ApiKeyAuth: []
+        parameters:
+            -   name: shipment_id
+                in: path
+                description: id of shipment to retrieve
+                required: true
+                schema:
+                    type: string
+
+        responses:
+            '200':
+                description: shipment
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Shipment'
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
+    delete:
+        description: |
+            delete shipment by id
+        operationId: deleteShipment
+        # security:
+        #     - ApiKeyAuth: []
+        parameters:
+            -   name: shipment_id
+                in: path
+                description: id of shipment to retrieve
+                required: true
+                schema:
+                    type: string
+
+        responses:
+            '200':
+                description: shipment
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/Shipment'
+            default:
+                description: unexpected error
+                content:
+                    application/json:
+                        schema:
+                            $ref: '../openapi.yml#/components/schemas/Error'
+
+components:
+    schemas:
+        Shipment:
+            required:
+                - height
+                - length
+                - width
+                - weight
+            properties:
+                id:
+                    type: string
+                height:
+                    type: number
+                    minimum: 0
+                length:
+                    type: number
+                    minimum: 0
+                width:
+                    type: number
+                    minimum: 0
+                weight:
+                    type: number
+                    minimum: 0

@@ -1,0 +1,46 @@
+{
+  "shipping": [
+    {
+      "origin_zip": "10021",
+      "rates": [
+        {
+          "id": "6ef5a85edf9572111b1b4929",
+          "price": 79.5,
+          "provider_type": "UPS",
+          "service_type": "GROUND",
+          "elapsedTime": 15,
+          "carrier": {
+            "service_level": "UPS (Threshold Delivery)",
+            "approx_delivery": "1-2 Weeks",
+            "description": "The item will be collected from the consignor, packaged for transit, and delivered to your front porch, front door, curbside or garage. The shipper will not enter the premises, remove packaging, or provide any assembly."
+          }
+        },
+        {
+          "id": "5ef5a85edf9572001b1b4911",
+          "price": 249.9,
+          "provider_type": "UPS",
+          "service_type": "STANDARD",
+          "elapsedTime": 34,
+          "carrier": {
+            "service_level": "UPS Standard Delivery",
+            "approx_delivery": "2-3 Days (currently experiencing significant delays)",
+            "description": "The item will be collected from the consignor, packaged for transit, and delivered to your front porch, front door, curbside or garage. The shipper will not enter the premises, remove packaging, or provide any assembly."
+          }
+        },
+        {
+          "id": "6ef5a85edf9572001b1b4922",
+          "price": 299,
+          "provider_type": "UPS",
+          "service_type": "EXPRESS",
+          "elapsedTime": 34,
+          "carrier": {
+            "service_level": "UPS Standard Delivery",
+            "approx_delivery": "1 Day",
+            "description": "The item will be collected from the consignor, packaged for transit, and delivered to your front porch, front door, curbside or garage. The shipper will not enter the premises, remove packaging, or provide any assembly."
+          }
+        }
+      ]
+    }
+  ],
+  "timestamp": 1593157726834
+}

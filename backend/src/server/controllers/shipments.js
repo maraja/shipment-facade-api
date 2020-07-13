@@ -128,7 +128,7 @@ const getShipmentQuote = async (req, res, next) => {
             height, length, width, weight
         });
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         return next(e);
     }
 }

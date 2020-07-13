@@ -6,4 +6,4 @@ WORKDIR /opt/app/backend
 
 RUN yarn
 
-CMD yarn watch
+CMD yarn start

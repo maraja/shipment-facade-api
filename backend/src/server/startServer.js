@@ -50,3 +50,5 @@ new OpenApiValidator({
     console.debug(error);
 }
 )
+
+module.exports = app;

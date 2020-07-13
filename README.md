@@ -3,7 +3,6 @@
 
 ## Table of contents
 * [General info](#general-info)
-* [Screenshots](#screenshots)
 * [Technologies](#technologies)
 * [Setup](#setup)
 * [Documentation](#documentation)
@@ -12,9 +11,6 @@
 
 ## General info
 This is a dummy project developed to show off backend development with a suite of technologies. One goal for this project is to ensure the ease of use with respect to set up. All of these technologies can be found below.
-
-## Screenshots
-![Example screenshot](./img/screenshot.png)
 
 ## Technologies
 * Node.js

@@ -92,10 +92,6 @@ You can reinitialize the db in case anything goes wrong. Simply connect to the d
 ## Documentation
 API Documentation can be found here: https://documenter.getpostman.com/view/395098/T17KeSmG?version=latest
 
-## Code Examples
-Show examples of usage:
-`put-your-code-here`
-
 ## Features
 List of features ready and TODOs for future development
 * Create, get, and delete shipments

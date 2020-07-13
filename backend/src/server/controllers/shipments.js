@@ -14,7 +14,7 @@ let parseXMLtoJSON = promisify(new xml2js.Parser({
     parseBooleans: true
 }).parseString)
 
-const { Shipment, FedEx, UPS } = db;
+const { Shipment, FedEx, UPS, Origin, Destination } = db;
 
 const UPS_URI = accessEnv("UPS_URI");
 const FEDEX_URI = accessEnv("FEDEX_URI");
@@ -67,17 +67,30 @@ const getShipmentQuote = async (req, res, next) => {
         length, 
         width, 
         weight, 
-        first_name, 
-        last_name, 
-        street_line_one, 
-        city, 
-        state, 
-        zip, sort_by } = req.body;
+        zip, 
+        sort_by } = req.body;
+
+        
+    const {
+        first_name: origin_first_name, 
+        last_name: origin_last_name, 
+        street_line_one: origin_street_line_one, 
+        city: origin_city, 
+        state: origin_state, 
+        zip: origin_zip } = req.body.origin
+
+    const {
+        first_name: destination_first_name, 
+        last_name: destination_last_name, 
+        street_line_one: destination_street_line_one, 
+        city: destination_city, 
+        state: destination_state, 
+        zip: destination_zip } = req.body.destination
 
 
     try {
         // throw an error if the provided zip is falsey.
-        if (!!!zip) throw Error("No zip provided.")
+        if (!!!origin_zip) throw Error("No zip provided.")
         if (sort_by && !SORTABLE_VALUES.includes(sort_by)) throw Error("sort_by value provided not supported.")
 
         // craft the fedex xml request.
@@ -85,10 +98,10 @@ const getShipmentQuote = async (req, res, next) => {
             <ship>
                 <origin>
                     <address>
-                        ${street_line_one ? `<street>${street_line_one}</street>` : ``}
-                        ${city ? `<city>${city}</city>` : ``}
-                        ${state ? `<state>${state}</state>` : ``}
-                        ${zip ? `<zip>${zip}</zip>` : ``}
+                        ${origin_street_line_one ? `<street>${origin_street_line_one}</street>` : ``}
+                        ${origin_city ? `<city>${origin_city}</city>` : ``}
+                        ${origin_state ? `<state>${origin_state}</state>` : ``}
+                        ${origin_zip ? `<zip>${origin_zip}</zip>` : ``}
                     </address>
                 </origin>
             </ship>
@@ -97,7 +110,7 @@ const getShipmentQuote = async (req, res, next) => {
         // send the ups and fedex calls.
         // Note: this is not currently optimized. With a proper promise call, we can have these calls
         // run concurrently instead of subsequently.
-        const upsResponse = await got.post(UPS_URI, { json: { zip } }).json()
+        const upsResponse = await got.post(UPS_URI, { json: { origin_zip } }).json()
         const fedexResponse = await got.post(FEDEX_URI, { 
             headers: {'Content-Type': 'text/xml'}, 
             body: fedex_xml
@@ -143,14 +156,24 @@ const postShipment = async (req, res, next) => {
         length, 
         width, 
         weight, 
-        first_name, 
-        last_name, 
-        street_line_one, 
-        city, 
-        state, 
-        zip,
         fedex_id, 
         ups_id } = req.body;
+
+    const {
+        first_name: origin_first_name, 
+        last_name: origin_last_name, 
+        street_line_one: origin_street_line_one, 
+        city: origin_city, 
+        state: origin_state, 
+        zip: origin_zip } = req.body.origin
+
+    const {
+        first_name: destination_first_name, 
+        last_name: destination_last_name, 
+        street_line_one: destination_street_line_one, 
+        city: destination_city, 
+        state: destination_state, 
+        zip: destination_zip } = req.body.destination
 
     let newShipment = null
     let newUPSDetails = null
@@ -159,7 +182,7 @@ const postShipment = async (req, res, next) => {
 
     try {
         // check if the zip is falsey
-        if (!!!zip) throw Error("No zip provided.")
+        if (!!!origin_zip) throw Error("No zip provided.")
 
         if (!ups_id && !fedex_id) throw Error("No shipping id provided.")
 
@@ -169,10 +192,10 @@ const postShipment = async (req, res, next) => {
                 <ship>
                     <origin>
                         <address>
-                            ${street_line_one ? `<street>${street_line_one}</street>` : ``}
-                            ${city ? `<city>${city}</city>` : ``}
-                            ${state ? `<state>${state}</state>` : ``}
-                            ${zip ? `<zip>${zip}</zip>` : ``}
+                            ${origin_street_line_one ? `<street>${origin_street_line_one}</street>` : ``}
+                            ${origin_city ? `<city>${origin_city}</city>` : ``}
+                            ${origin_state ? `<state>${origin_state}</state>` : ``}
+                            ${origin_zip ? `<zip>${origin_zip}</zip>` : ``}
                         </address>
                     </origin>
                 </ship>
@@ -217,7 +240,7 @@ const postShipment = async (req, res, next) => {
             })
 
         } else if (ups_id) {
-            const upsResponse = await got.post(UPS_URI, { json: { zip } }).json()
+            const upsResponse = await got.post(UPS_URI, { json: { origin_zip } }).json()
 
             // if no rates are returned, throw an error.
             if (upsResponse.shipping[0].rates.length == 0) throw Error("Invalid ups_id provided.")
@@ -252,6 +275,38 @@ const postShipment = async (req, res, next) => {
             })
 
         } 
+            
+        let newOrigin = await Origin.create({
+            id: generateUUID(),
+            shipmentId: newShipment.id, 
+            first_name: origin_first_name, 
+            last_name: origin_last_name, 
+            street_line_one: origin_street_line_one, 
+            city: origin_city, 
+            state: origin_state, 
+            zip: origin_zip
+        })
+
+        let newDestination = await Destination.create({
+            id: generateUUID(),
+            shipmentId: newShipment.id, 
+            first_name: destination_first_name, 
+            last_name: destination_last_name, 
+            street_line_one: destination_street_line_one, 
+            city: destination_city, 
+            state: destination_state, 
+            zip: destination_zip
+        })
+
+        include.push({
+            model: Origin,
+            as: 'shippingOrigin'
+        })
+        
+        include.push({
+            model: Destination,
+            as: 'shippingDestination'
+        })
         
         newShipment = await Shipment.findByPk(newShipment.id, {
             subQuery: false,

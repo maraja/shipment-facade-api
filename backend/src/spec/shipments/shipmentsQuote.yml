@@ -35,20 +35,54 @@ components:
                 - length
                 - width
                 - weight
+                - origin
+                - destination
             properties:
+                origin:
+                    type: object
+                    required:
+                        - first_name
+                        - last_name
+                        - street_line_one
+                        - city
+                        - state
+                        - zip
+                    properties:
+                        first_name:
+                            type: string
+                        last_name:
+                            type: string
+                        street_line_one:
+                            type: string
+                        city:
+                            type: string
+                        state:
+                            type: string
+                        zip:
+                            type: string
+                destination:
+                    type: object
+                    required:
+                        - first_name
+                        - last_name
+                        - street_line_one
+                        - city
+                        - state
+                        - zip
+                    properties:
+                        first_name:
+                            type: string
+                        last_name:
+                            type: string
+                        street_line_one:
+                            type: string
+                        city:
+                            type: string
+                        state:
+                            type: string
+                        zip:
+                            type: string
                 id:
-                    type: string
-                first_name:
-                    type: string
-                last_name:
-                    type: string
-                street_line_one:
-                    type: string
-                city:
-                    type: string
-                state:
-                    type: string
-                zip:
                     type: string
                 sort_by:
                     type: string

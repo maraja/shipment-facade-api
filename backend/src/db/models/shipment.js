@@ -29,6 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     Shipment.associate = function (models) {
         this.hasOne(models.FedEx, {foreignKey: 'shipmentId', as: "fedexShipment", onDelete: 'cascade', hooks: true});
         this.hasOne(models.UPS, {foreignKey: 'shipmentId', as: "upsShipment", onDelete: 'cascade', hooks: true});
+        this.hasOne(models.Origin, {foreignKey: 'shipmentId', as: "shippingOrigin", onDelete: 'cascade', hooks: true});
+        this.hasOne(models.Destination, {foreignKey: 'shipmentId', as: "shippingDestination", onDelete: 'cascade', hooks: true});
     };
 
     return Shipment;

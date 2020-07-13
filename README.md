@@ -25,7 +25,7 @@ This is a dummy project developed to show off backend development with a suite o
 * Docker
 
 ## Setup
-This project is built using Docker containers and a docker-compose file is placed in the root of the repository. Follow the steps below to get started:
+This project is built using Docker containers, thus you will need Docker installed for it to work. A docker-compose file is placed in the root of the repository. Follow the steps below to get started:
 
 Check out the repository:
 
@@ -44,6 +44,26 @@ Run the following Docker command within the root directory:
 ```
 docker-compose up
 ```
+
+#### To edit code
+Before working with the code, you must have Node.js installed (the latest LTS version should work just fine). Change into the backend repository directory:
+
+```
+cd shipment-facade-api/backend
+```
+Install yarn:
+
+```
+npm install -g yarn
+```
+
+Install all the necessary modules:
+```
+yarn
+```
+
+Now you can begin editing! Once you start the application following the instructions at the beginning of the setup (i.e., running `docker-compose up`), editing any file will automatically restart the application.
+
 
 #### To run tests
 

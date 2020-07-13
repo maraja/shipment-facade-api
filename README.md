@@ -72,6 +72,8 @@ List of features ready and TODOs for future development
 To-do list:
 * Implement JWT as a form of authentication for authorized requests.
 * When cancelling a shipment, should just set a flag in the table to "cancelled" instead of removing entirely. Application will gracefully handle these cancellations.
+* More unit tests should be done to ensure origin and destination addresses are provided successfully.
+* Input validation and sanization needse to be done.
 
 ## Extra Notes
 

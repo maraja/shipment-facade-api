@@ -37,6 +37,14 @@ const getShipment = async (req, res, next) => {
                 {
                     model: FedEx,
                     as: 'fedexShipment'
+                },
+                {
+                    model: Origin,
+                    as: 'shippingOrigin'
+                },
+                {
+                    model: Destination,
+                    as: 'shippingDestination'
                 }
             ],
             // the following two will flatten and spit out only a json
@@ -110,7 +118,7 @@ const getShipmentQuote = async (req, res, next) => {
         // send the ups and fedex calls.
         // Note: this is not currently optimized. With a proper promise call, we can have these calls
         // run concurrently instead of subsequently.
-        const upsResponse = await got.post(UPS_URI, { json: { origin_zip } }).json()
+        const upsResponse = await got.post(UPS_URI, { json: { zip: origin_zip } }).json()
         const fedexResponse = await got.post(FEDEX_URI, { 
             headers: {'Content-Type': 'text/xml'}, 
             body: fedex_xml
@@ -240,7 +248,7 @@ const postShipment = async (req, res, next) => {
             })
 
         } else if (ups_id) {
-            const upsResponse = await got.post(UPS_URI, { json: { origin_zip } }).json()
+            const upsResponse = await got.post(UPS_URI, { json: { zip: origin_zip } }).json()
 
             // if no rates are returned, throw an error.
             if (upsResponse.shipping[0].rates.length == 0) throw Error("Invalid ups_id provided.")
@@ -337,7 +345,8 @@ const cancelShipment = async (req, res, next) => {
 
         await UPS.destroy({ where: { shipmentId: id } })
         await FedEx.destroy({ where: { shipmentId: id } })
-
+        await Origin.destroy({ where: { shipmentId: id } })
+        await Destination.destroy({ where: { shipmentId: id } })
 
         return res.json({
             success: true,

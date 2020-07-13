@@ -4,6 +4,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
+* [Directory Structure](#directory)
 * [Setup](#setup)
 * [Documentation](#documentation)
 * [Features](#features)
@@ -19,6 +20,23 @@ This is a dummy project developed to show off backend development with a suite o
 * OpenAPI 3.0
 * MySQL
 * Docker
+
+## Directory
+    .
+    ├── ...
+    ├── backend
+    │   ├── src                     # source code for backend
+    │   |   ├── db                  # DB Models and configuration
+    │   |   ├── helpers             # Helper code
+    │   |   ├── server  
+    │   |   |   ├── auth            # Placeholder auth for JWT.
+    │   |   |   ├── controllers     # Controllers for API
+    │   |   |   └── routes          # Routes for API
+    │   |   └── spec                # OpenAPI spec documentation
+    │   ├── tests                   # End-to-end, integration tests (alternatively `e2e`)
+    │   ├── sequelize               # Sequelize ORM configuration and migrations
+    │   └── coverage                # Code coverage report
+    └── ...
 
 ## Setup
 This project is built using Docker containers, thus you will need Docker installed for it to work. A docker-compose file is placed in the root of the repository. Follow the steps below to get started:
